@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Functions ==============================================
 
 function app_is_installed {
@@ -73,17 +75,36 @@ function install_app {
   tput sc
   tput rc
   tput ed
-  echo "$1\t\t\t\t$(echo_if $(app_is_installed $2))                   "
-  if [ $(app_is_installed $2) == 0 ]; then
-    sleep 1
+  app_name_tabs "$1"
+  echo "$1$tabs$(echo_if $(app_is_installed "$2"))                   "
+  if [ $(app_is_installed "$2") == 0 ]; then
+    sleep 0.1
     tput rc
     tput ed
-    echo "$1\t\t\t\t$(echo_if $(app_is_installed $2))   Installing... "
-    sleep 3
+    echo "$1$tabs$(echo_if $(app_is_installed "$2"))   Installing... "
+    sleep 0.2
     tput rc
     tput ed
-    echo "$1\t\t\t\t$(echo_if $(app_is_installed $2))                 "
+    echo "$1$tabs$(echo_if $(app_is_installed "$2"))                 "
+    sleep 0.1
     tput sc
+  fi
+}
+
+function app_name_tabs {
+  name="$1"
+  size="${#name}"
+  if (( $size < 8 )) ; then
+    tabs="\t\t\t\t"
+  fi
+  if (( $size >= 8 )) && (( $size < 16 )) ; then
+    tabs="\t\t\t"
+  fi
+  if (( $size >= 16 )) && (( $size < 24 )) ; then
+    tabs="\t\t"
+  fi
+  if (( $size >= 24 )) && (( $size < 32 )) ; then
+    tabs="\t"
   fi
 }
 

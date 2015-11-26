@@ -43,7 +43,7 @@ function configure_keymap {
     'ctrl-alt-tab' : 'window:focus-next-pane'
     'ctrl-alt-shift-tab' : 'window:focus-previous-pane'
     'ctrl-alt-cmd-p' : 'project-sidebar:toggle'
-  " >> $HOME/.atom/keymap.cson
+  " > $HOME/.atom/keymap.cson
 }
 
 function configure_styles {
@@ -135,5 +135,5 @@ if [ check_dependencies ] ; then
   install_plugins
   configure_keymap
   configure_styles
-  echo "\n\n\033[32mMAC OSX CONFIGURED SUCCESFULLY\n\n"
+  echo "\n\n\033[32mATOM CONFIGURED SUCCESFULLY\n\n"
 fi
