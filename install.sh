@@ -18,14 +18,16 @@ function install_mac_osx_updates {
   sw_vers |grep ProductVersion
 }
 
-function install_git {
-  echo "- Installing git"
-  sudo port install git-core +svn +doc +bash_completion +gitweb
-}
-
 function install_homebrew {
   echo "- Installing homebrew"
   ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+  brew update
+}
+
+function install_git {
+  echo "- Installing git"
+  #sudo port install git-core +svn +doc +bash_completion +gitweb
+  brew install git
 }
 
 function install_cask {
@@ -39,21 +41,27 @@ function install_rvm {
   \curl -L https://get.rvm.io | bash -s stable
 }
 
-function install_node {
-  echo "- Installing node.js"
-  brew cask install --caskroom="/opt/homebrew-cask/Caskroom" node
-}
-
 function install_nvm {
   echo "Installing NVM - Node Version Manager"
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash
+  #curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash
+  brew install nvm
+  source $(brew --prefix nvm)/nvm.sh
+}
+
+function install_node {
+  echo "- Installing node.js 0.10"
+  # brew cask install --caskroom="/opt/homebrew-cask/Caskroom" node
+  nvm install 0.10
+  nvm use 0.10
 }
 
 function install_zShell {
   echo "- Installing zShell with dotfiles"
-
+  cd
+  git clone https://github.com/jamesperet/dotfiles.git
+  cd dotfiles
+  sh makesymlinks.sh
 }
-
 
 function install_youtube_dl {
   echo "- Installing youtube-dl"
@@ -80,34 +88,30 @@ function install_teamocil {
   cp teamocil/avalanche.yml $HOME/.teamocil/avalanche.yml
 }
 
-echo "Installing brew cask apps"
-brewCaskApps=(atom dropbox google-chrome firefox iterm2 evernote rescuetime transmit dash postgres mou monodraw sketch-toolbox unity unity-web-player bfxr sonic-pi xact slack skype vlc transmission sitesucker the-unarchiver appcleaner hyperswitch)
+function install_redis {
+  echo "- Installing Redis"
+  brew install redis
+}
 
-brew cask install ${brewCaskApps[@]}
-
+function install_pgcli {
+  echo "- Installing PostGres CLI"
+  brew install pgcli
+}
 
 # Run Functions
+tput civis -- invisible
 install_command_line_tools
 install_mac_osx_updates
 install_git
 install_homebrew
 install_cask
 install_rvm
-install_node
 install_nvm
-
+install_node
 install_youtube_dl
 install_ImageMagik
 install_tmux
 install_teamocil
-
-tput civis -- invisible
-install_app atom Atom.app
-install_app craxxxp Crap.app
-install_program "node"
-install_npm_package "grunt"
-install_npm_package "serve"
-install_npm_package "testacular"
-install_npm_package "uglifyjs"
-install_npm_package "requirejs"
+install_redis
+install_pgcli
 tput cnorm
