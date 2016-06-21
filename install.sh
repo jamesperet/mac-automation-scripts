@@ -84,8 +84,8 @@ function install_tmux {
 function install_teamocil {
   echo "- Installing teamocil"
   gem install teamocil
-  mkdir $HOME/.teamocil
-  cp teamocil/avalanche.yml $HOME/.teamocil/avalanche.yml
+  #mkdir $HOME/.teamocil
+  #cp teamocil/avalanche.yml $HOME/.teamocil/avalanche.yml
 }
 
 function install_redis {
