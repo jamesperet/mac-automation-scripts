@@ -6,7 +6,6 @@ sudo chown -R $(whoami) /usr/local/lib/node_modules/
 npm install -g grunt-cli
 npm install -g serve
 
-
 # Ruby configured
 brew install redis
 brew install pgcli
